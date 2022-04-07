@@ -161,9 +161,8 @@ import {
   isLastName,
   isLettersWithBlankSpaces,
 } from '@/utils/regex.js'
-import { login, register } from '@/components/axios/auth/auth'
-import { getRole, setProfileInfo } from '@/components/axios/userinfo/userinfo'
-import { getEntities } from '@/components/axios/admin/entities'
+import { login, register } from '@/services/auth/auth'
+import { getRole, setProfileInfo } from '@/services/userinfo/userinfo.js'
 
 import { mapMutations, mapActions } from 'vuex'
 
@@ -308,37 +307,12 @@ export default {
 
         await setProfileInfo()
 
-        const entitiesResponse = await this.getEntities()
-        if (!entitiesResponse) {
-          this.loading = false
-          return
-        }
-        const entities = entitiesResponse.data.data
-        const firstEntity = [
-          {
-            id_entidad: 0,
-            denominacion: 'Todas',
-          },
-        ]
-        const entitiesRelevantData = firstEntity.concat(entities)
-        this.setEntities(entitiesRelevantData)
         this.loading = false
         this.changeRouteByRole(role)
       } catch (error) {
         console.error(error)
       }
       this.loading = false
-    },
-
-    async getEntities() {
-      let entitiesResponse
-      try {
-        entitiesResponse = await getEntities(1)
-      } catch (error) {
-        console.log(error)
-        return 0
-      }
-      return entitiesResponse
     },
 
     async getRole() {

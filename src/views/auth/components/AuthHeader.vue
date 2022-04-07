@@ -8,7 +8,7 @@
         v-if="showLogo"
         class="object-fit-cover img-size ml-sm-3 mt-3"
         style="width: 120px"
-        src="@/assets/logo/logo02.svg"
+        src="@/assets/logo.svg"
         alt="ticket"
       />
     </div>

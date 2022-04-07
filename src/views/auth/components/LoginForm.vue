@@ -72,9 +72,8 @@
 import { isEmail } from '@/utils/regex.js'
 
 // Petitions
-import { login } from '@/components/axios/auth/auth'
-import { getRole, setProfileInfo } from '@/components/axios/userinfo/userinfo'
-import { getEntities } from '@/components/axios/admin/entities'
+import { login } from '@/services/auth/auth'
+import { getRole, setProfileInfo } from '@/services/userinfo/userinfo.js'
 
 // Vuex
 import { mapGetters, mapMutations, mapActions } from 'vuex'
@@ -151,7 +150,6 @@ export default {
       this.setRole(role)
 
       await setProfileInfo()
-      entitiesResponse = await this.getEntities()
       if (!entitiesResponse) {
         this.loading = false
         return
@@ -183,16 +181,7 @@ export default {
       }
       return roleResponse
     },
-    async getEntities() {
-      let entitiesResponse
-      try {
-        entitiesResponse = await getEntities(1, 40)
-      } catch (error) {
-        console.log(error)
-        return 0
-      }
-      return entitiesResponse
-    },
+
     changeRouteByRole() {
       switch (this.from) {
         case 'store':

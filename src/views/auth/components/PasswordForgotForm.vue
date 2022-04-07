@@ -34,7 +34,7 @@
 
 <script>
 import axios from 'axios/index'
-import { requestDataWithApp } from '@/components/axios/requestHeadersHelper'
+import { requestDataWithApp } from '@/services/requestHeadersHelper'
 import { SERVER_DIR } from '@/utils/constants'
 import { isEmail } from '@/utils/regex'
 
