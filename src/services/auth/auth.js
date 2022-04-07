@@ -5,7 +5,7 @@ import {
   CLIENT_ID,
   CLIENT_SECRET,
   APPLICATION,
-} from '../../../utils/constants'
+} from '../../utils/constants'
 import qs from 'query-string'
 
 function auth() {
