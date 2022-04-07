@@ -1,66 +1,39 @@
 <template>
-  <div class="auth-header ">
-    <div
-      class="d-block d-sm-flex align-sm-center"
-      style=""
-    >
+  <div class="auth-header">
+    <div class="d-block d-sm-flex align-sm-center" style="">
       <p class="d-block flex-sm-shrink-0 mt-1">
         {{ title }}
       </p>
       <img
         v-if="showLogo"
         class="object-fit-cover img-size ml-sm-3 mt-3"
-        style="width: 120px;"
+        style="width: 120px"
         src="@/assets/logo/logo02.svg"
         alt="ticket"
-      >
+      />
     </div>
   </div>
-<!--  <div class="auth-header">-->
-<!--    <v-row-->
-<!--      no-gutters-->
-<!--      style="margin: 16px"-->
-<!--    >-->
-<!--      <div class="one">-->
-<!--        <div>-->
-<!--          <p-->
-<!--            style=""-->
-<!--          >-->
-<!--            Bienvenido a-->
-<!--          </p>-->
-<!--        </div>-->
-<!--        <div-->
-<!--          class="logo"-->
-<!--        >-->
-<!--          <v-img-->
-<!--            :src="require(`@/assets/ticket_blue.png`)"-->
-<!--            width="100%"-->
-<!--          />-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </v-row>-->
-<!--  </div>-->
 </template>
 
 <script>
-  export default {
-    name: 'AuthHeader',
-    props: {
-      title: {
-        type: String,
-        default: '',
-      },
-      showLogo: {
-        type: Boolean,
-        default: false,
-      },
+export default {
+  name: 'AuthHeader',
+  props: {
+    title: {
+      type: String,
+      default: '',
     },
-    data () {
-      return {
-        appIcon: '@assets/ticket-rounded.png',
-      }
+    showLogo: {
+      type: Boolean,
+      default: false,
     },
-  }
+  },
+  data() {
+    return {
+      appIcon: '@assets/ticket-rounded.png',
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
