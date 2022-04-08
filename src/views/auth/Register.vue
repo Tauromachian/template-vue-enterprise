@@ -1,15 +1,10 @@
 <template>
-  <div
-    class="auth-wrapper "
-  >
+  <div class="auth-wrapper">
     <div
       class="pa-10 white rounded-lg elevation-1 my-10"
-      style="border: thin solid rgba(0,0,0,.12);"
+      style="border: thin solid rgba(0, 0, 0, 0.12)"
     >
-      <auth-header
-        title="Crear cuenta en"
-        :show-logo="true"
-      />
+      <auth-header title="Crear cuenta en" :show-logo="true" />
       <div class="form-wrapper">
         <register-form />
       </div>
@@ -18,27 +13,26 @@
 </template>
 
 <script>
-  import AuthHeader from './components/AuthHeader'
-  import RegisterForm from './components/RegisterForm'
-  import LoginForm from './components/LoginForm'
+import AuthHeader from './components/AuthHeader'
+import RegisterForm from './components/RegisterForm'
 
-  export default {
-    name: 'AuthWrapper',
-    components: {
-      AuthHeader,
-      RegisterForm,
-    },
-  }
+export default {
+  name: 'AuthWrapper',
+  components: {
+    AuthHeader,
+    RegisterForm,
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 .auth-wrapper {
   display: flex;
-  margin-top: .5em;
+  margin-top: 0.5em;
   height: 100%;
   justify-content: center;
   align-items: center;
-  background: #F9FAFB;
+  background: #f9fafb;
 }
 
 @media screen and (min-width: 1030px) {
@@ -72,7 +66,7 @@
 }
 
 .v-btn {
-  text-transform: none !important
+  text-transform: none !important;
 }
 
 a:link {
@@ -84,5 +78,4 @@ a:visited {
   text-decoration: none;
   color: #1e66b0;
 }
-
 </style>
