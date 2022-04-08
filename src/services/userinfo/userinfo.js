@@ -1,21 +1,22 @@
 import axios from 'axios'
 import {
   AGENT,
-  BIENESTAR_DIR, BIENESTAR_DIR_2,
+  BIENESTAR_DIR,
+  BIENESTAR_DIR_2,
   NO_AVATAR,
   REGISTER_DIR,
 } from '@/utils/constants'
 import store from '@/store'
 import { requestData } from '../requestHeadersHelper'
 
-export async function getRole () {
+export async function getRole() {
   const role = await axios.get(BIENESTAR_DIR + 'rol', requestData())
   return role
 }
 
-export async function setProfileInfo () {
+export async function setProfileInfo() {
   const profileInfo = new Promise((resolve, reject) => {
-    getProfileInfo((err, ok) => {
+    getProfileInfo((err) => {
       if (err) {
         return reject(err)
       }
@@ -24,7 +25,7 @@ export async function setProfileInfo () {
   })
   await profileInfo
   const avatar = new Promise((resolve, reject) => {
-    getAvatar((err, ok) => {
+    getAvatar((err) => {
       if (err) {
         return reject(err)
       }
@@ -34,7 +35,7 @@ export async function setProfileInfo () {
   await avatar
 }
 
-export function getProfileInfo (cb) {
+export function getProfileInfo(cb) {
   axios
     .get(BIENESTAR_DIR_2 + 'perfil', {
       headers: {
@@ -56,7 +57,7 @@ export function getProfileInfo (cb) {
     })
 }
 
-export function updateAvatar (updateAvatar, cb) {
+export function updateAvatar(updateAvatar, cb) {
   axios
     .post(
       BIENESTAR_DIR + 'avatar',
@@ -73,7 +74,7 @@ export function updateAvatar (updateAvatar, cb) {
         httpsAgent: {
           AGENT,
         },
-      },
+      }
     )
     .then(function (response) {
       console.log(response)
@@ -86,7 +87,7 @@ export function updateAvatar (updateAvatar, cb) {
     })
 }
 
-export function getAvatar (cb) {
+export function getAvatar(cb) {
   axios
     .get(BIENESTAR_DIR_2 + 'avatar', {
       headers: {
@@ -114,7 +115,7 @@ export function getAvatar (cb) {
     })
 }
 
-export function updateProfileInfo (user, cb) {
+export function updateProfileInfo(user, cb) {
   axios
     .post(
       BIENESTAR_DIR + 'perfil',
@@ -148,7 +149,7 @@ export function updateProfileInfo (user, cb) {
         httpsAgent: {
           AGENT,
         },
-      },
+      }
     )
     .then(function (response) {
       console.log(response)
@@ -159,7 +160,7 @@ export function updateProfileInfo (user, cb) {
     })
 }
 
-export function updatePass (pass, cb) {
+export function updatePass(pass, cb) {
   axios
     .post(
       BIENESTAR_DIR + 'pass',
@@ -178,7 +179,7 @@ export function updatePass (pass, cb) {
         httpsAgent: {
           AGENT,
         },
-      },
+      }
     )
     .then(function (response) {
       console.log(response)
@@ -189,7 +190,7 @@ export function updatePass (pass, cb) {
     })
 }
 
-export function registerUser (user, cb) {
+export function registerUser(user, cb) {
   axios
     .post(
       REGISTER_DIR,
@@ -206,13 +207,13 @@ export function registerUser (user, cb) {
         httpsAgent: {
           AGENT,
         },
-      },
+      }
     )
     .then(function (response) {
       console.log(response)
       cb(null, response.data)
     })
-    .catch(error => {
+    .catch((error) => {
       cb(error)
     })
 }
