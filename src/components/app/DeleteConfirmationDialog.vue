@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="400">
     <v-card>
       <v-card-title :style="{ 'background-color': folderTitleColor }">
-        <span>{{ title }}?</span>
+        <span class="white--text">{{ title }}?</span>
         <v-spacer />
         <v-btn icon @click="dialog = false">
           <v-icon color="white"> mdi-close </v-icon>
@@ -13,7 +13,7 @@
       <v-card-actions>
         <v-spacer />
 
-        <base-form-action-buttons
+        <app-form-action-buttons
           :disabled="disabled"
           accept-button-text="Borrar"
           cancel-button-text="No borrar"
