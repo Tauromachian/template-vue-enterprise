@@ -1,3 +1,6 @@
+import SecureLS from 'secure-ls'
+const ls = new SecureLS()
+
 export const state = {
   theme: 'light',
   themes: {
@@ -58,4 +61,25 @@ export const mutations = {
     (state.preReservateData = preReservateData),
   setServiceDetails: (state, serviceDetails) =>
     (state.serviceDetails = serviceDetails),
+}
+
+export const actions = {
+  setTokens({ commit }, tokens) {
+    const encodedAccessToken = btoa(tokens.accessToken)
+    const encodedIdToken = btoa(tokens.idToken)
+    const encodedRefreshToken = btoa(tokens.refreshToken)
+    // Set tokens in store
+    commit('setAccessToken', encodedAccessToken)
+    commit('setIdToken', encodedIdToken)
+    commit('setRefreshToken', encodedRefreshToken)
+    // Set tokens in cookies
+
+    ls.set('accessToken', encodedAccessToken)
+    ls.set('idToken', encodedIdToken)
+    ls.set('refreshToken', encodedRefreshToken)
+
+    document.cookie = `accessToken=${encodedAccessToken}`
+    document.cookie = `idToken=${encodedIdToken}`
+    document.cookie = `refreshToken=${encodedRefreshToken}`
+  },
 }
