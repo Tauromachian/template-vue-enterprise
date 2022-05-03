@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {
-  AGENT,
   SERVER_DIR,
+  HOST_DIR,
   CLIENT_ID,
   CLIENT_SECRET,
   APPLICATION,
@@ -18,22 +18,19 @@ function requestDataAuth() {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: auth(),
     },
-    httpsAgent: {
-      AGENT,
-    },
   }
 }
 
 // Auth loggin
 export async function login(data) {
-  const url = `${SERVER_DIR}/oauth2/token`
+  const url = `${HOST_DIR}/oauth2/token`
   const response = await axios.post(url, qs.stringify(data), requestDataAuth())
   return response
 }
 
 // Auth register
 export async function register(data) {
-  const url = `${SERVER_DIR}/api/register`
+  const url = `${SERVER_DIR}api/register`
   data.application = APPLICATION
   data = qs.stringify(data)
   const response = await axios.post(url, data, requestDataAuth())
