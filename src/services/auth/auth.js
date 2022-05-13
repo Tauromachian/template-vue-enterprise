@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {
   SERVER_DIR,
+  REGISTER_DIR,
   HOST_DIR,
   CLIENT_ID,
   CLIENT_SECRET,
@@ -35,4 +36,23 @@ export async function register(data) {
   data = qs.stringify(data)
   const response = await axios.post(url, data, requestDataAuth())
   return response
+}
+
+export function registerUser(user, cb) {
+  axios
+    .post(REGISTER_DIR, {
+      uid: user.email,
+      username: user.email,
+      mail: user.email,
+      name: user.name,
+      lastname: user.lastname,
+      password: user.password,
+      dni: user.dni,
+    })
+    .then(function (response) {
+      cb(null, response.data)
+    })
+    .catch((error) => {
+      cb(error)
+    })
 }
