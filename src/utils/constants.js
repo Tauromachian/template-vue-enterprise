@@ -9,5 +9,3 @@ export const NOM_DIR = SERVER_DIR + 'nom/'
 export const CLIENT_ID = process.env.VUE_APP_CLIENT_ID
 
 export const CLIENT_SECRET = process.env.VUE_APP_CLIENT_SECRET
-
-export const REGISTER_DIR = SERVER_DIR + '/api/register'
