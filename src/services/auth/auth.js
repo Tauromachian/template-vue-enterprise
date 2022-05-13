@@ -3,24 +3,10 @@ import {
   SERVER_DIR,
   REGISTER_DIR,
   HOST_DIR,
-  CLIENT_ID,
-  CLIENT_SECRET,
   APPLICATION,
 } from '../../utils/constants'
 import qs from 'query-string'
-
-function auth() {
-  return 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
-}
-
-function requestDataAuth() {
-  return {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: auth(),
-    },
-  }
-}
+import { requestData, requestDataAuth } from '../requestHeadersHelper'
 
 // Auth loggin
 export async function login(data) {
@@ -35,6 +21,12 @@ export async function register(data) {
   data.application = APPLICATION
   data = qs.stringify(data)
   const response = await axios.post(url, data, requestDataAuth())
+  return response
+}
+
+export async function getUserInfo() {
+  const url = `${SERVER_DIR}user/info`
+  const response = await axios.get(url, requestData())
   return response
 }
 
