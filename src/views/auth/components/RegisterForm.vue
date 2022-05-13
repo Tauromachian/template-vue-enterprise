@@ -161,8 +161,7 @@ import {
   isLastName,
   isLettersWithBlankSpaces,
 } from '@/utils/regex.js'
-import { login, register } from '@/services/auth/auth'
-import { getRole, setProfileInfo } from '@/services/userinfo/userinfo.js'
+import { login, register, getUserInfo } from '@/services/auth/auth'
 
 import { mapMutations, mapActions } from 'vuex'
 
@@ -302,41 +301,15 @@ export default {
           this.loading = false
           return
         }
-        const role = roleResponse.data.rol
-        this.setRole(role)
-
-        await setProfileInfo()
+        const userInforResponse = await getUserInfo()
+        this.setUserInfo(userInforResponse.data)
 
         this.loading = false
-        this.changeRouteByRole(role)
+        this.$router.push({ name: 'Form' })
       } catch (error) {
         console.error(error)
       }
       this.loading = false
-    },
-
-    async getRole() {
-      let roleResponse
-      try {
-        roleResponse = await getRole()
-      } catch (error) {
-        this.flashMessage.error({
-          status: 'error',
-          title: 'Inicio de sesión no exitoso',
-          message: 'Usuario o contraseña no correctos',
-        })
-        return 0
-      }
-      return roleResponse
-    },
-
-    changeRouteByRole(role) {
-      console.log(123)
-      if (role === 'super_admin' || role === 'admin_entidad') {
-        this.$router.push({ name: 'Dashboard' })
-      } else {
-        this.$router.push({ name: 'Profile' })
-      }
     },
   },
 }
