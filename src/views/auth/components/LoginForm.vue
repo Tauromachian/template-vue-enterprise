@@ -67,11 +67,10 @@
 import { isEmail } from '@/utils/regex.js'
 
 // Petitions
-import { login } from '@/services/auth/auth'
-import { getRole, setProfileInfo } from '@/services/userinfo/userinfo.js'
+import { login, getUserInfo } from '@/services/auth/auth'
 
 // Vuex
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   data: () => ({
