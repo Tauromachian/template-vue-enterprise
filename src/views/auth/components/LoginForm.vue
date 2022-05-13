@@ -5,8 +5,6 @@
         v-model="form.username"
         :rules="emailRules"
         :disabled="loading"
-        solo
-        height="65"
         type="email"
       >
         <template v-slot:label>
@@ -21,9 +19,6 @@
         :type="passwordHidden ? 'password' : 'text'"
         :disabled="loading"
         :rules="passwordRules"
-        style="margin-top: -6px"
-        height="65"
-        solo
         hide-details
         @click:append="() => (passwordHidden = !passwordHidden)"
       >
