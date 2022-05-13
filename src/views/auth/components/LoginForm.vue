@@ -101,22 +101,24 @@ export default {
   },
 
   methods: {
-    ...mapMutations('app', ['setRole', 'setEntities', 'setFrom']),
-    ...mapActions(['setTokens']),
+    ...mapActions('app', ['setTokens']),
+    ...mapMutations('user', ['setUserInfo']),
     async submit() {
       if (!this.$refs.form.validate()) {
         return
       }
       this.loading = true
-      let roleResponse = ''
-      let entitiesResponse = ''
+      // let roleResponse = ''
       let response
       this.form.scope = 'openid'
       this.form.grant_type = 'password'
       try {
         response = await login(this.form)
+        this.setTokensToStore(response.data)
+
+        const { data } = await getUserInfo()
+        this.setUserInfo(data)
       } catch (error) {
-        console.log(error)
         this.flashMessage.error({
           status: 'error',
           title: 'Credenciales incorrectas',
@@ -126,75 +128,15 @@ export default {
         this.loading = false
         return
       }
-      const data = response.data
+      this.loading = false
+      this.$router.push({ name: 'Form' })
+    },
+    setTokensToStore(data) {
       this.setTokens({
         accessToken: data.access_token,
         idToken: data.id_token,
         refreshToken: data.refresh_token,
       })
-      this.$store.dispatch('setStatus', !this.$store.getters.status)
-
-      roleResponse = await this.getRole()
-
-      if (!roleResponse) {
-        this.loading = false
-        return
-      }
-      const role = roleResponse.data.rol
-      this.setRole(role)
-
-      await setProfileInfo()
-      if (!entitiesResponse) {
-        this.loading = false
-        return
-      }
-      const entities = entitiesResponse.data.data
-      const firstEntity = [
-        {
-          id_entidad: 0,
-          denominacion: 'Todas',
-        },
-      ]
-      const entitiesRelevantData = firstEntity.concat(entities)
-      this.setEntities(entitiesRelevantData)
-      this.loading = false
-      this.changeRouteByRole(role)
-    },
-    async getRole() {
-      let roleResponse
-      try {
-        roleResponse = await getRole()
-      } catch (error) {
-        this.flashMessage.error({
-          status: 'error',
-          title: 'Credenciales incorrectas',
-          message:
-            'El usuario o la contraseña no son correctos, verifique que el CAPS LOCK no está encendido y vuelva a introducir sus datos',
-        })
-        return 0
-      }
-      return roleResponse
-    },
-
-    changeRouteByRole() {
-      switch (this.from) {
-        case 'store':
-          this.$router.push({ name: 'Store' })
-          this.setFrom(null)
-          break
-        case 'detail':
-          this.$router.push({ name: 'ServiceDetail' })
-          this.setFrom(null)
-          break
-        case 'portal':
-          this.$router.push({ name: 'Home' })
-          this.setFrom(null)
-          break
-        default:
-          this.$router.push({ name: 'Home' })
-          this.setFrom(null)
-          break
-      }
     },
   },
 }
